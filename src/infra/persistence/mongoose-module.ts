@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '../config/config-module';
 import { MongooseModule as NestJsMongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '../config/config-service';
@@ -14,11 +14,9 @@ import { ConfigService } from '../config/config-service';
       inject: [ConfigService],
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class MongooseModule {
   onModuleInit() {
-    console.log('MongooseModule has been initialized.');
+    Logger.log('MongooseModule has been initialized.');
   }
 }

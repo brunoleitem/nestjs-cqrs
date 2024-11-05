@@ -1,9 +1,9 @@
-import { randomUUID } from 'crypto';
+import { UserDocument } from '../../persistence/user-mongo';
 
 type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export class UserModel {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -16,17 +16,24 @@ export class UserModel {
   }
 
   static create(
-    data: WithOptional<UserModel, 'id' | 'createdAt' | 'updatedAt'>,
+    data: WithOptional<UserModel, 'createdAt' | 'updatedAt'>,
   ): UserModel {
     return new UserModel({
       ...data,
-      id: data.id ? data.id : randomUUID(),
       createdAt: data.createdAt ? data.createdAt : new Date(),
       updatedAt: data.updatedAt ? data.updatedAt : new Date(),
     });
   }
 
-  static createFrom(data: UserModel): UserModel {
-    return new UserModel(data);
+  static createFrom(data: UserDocument): UserModel {
+    const dataObject = data.toObject({
+      getters: true,
+      virtuals: false,
+      transform: (doc, ret) => {
+        delete ret._id;
+        return ret;
+      },
+    });
+    return new UserModel({ id: String(data._id), ...dataObject });
   }
 }

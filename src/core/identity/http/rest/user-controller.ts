@@ -1,10 +1,24 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-import { UserService } from '../../service/user-service';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { UserService } from '../../core/service/user-service';
 import { CreateUserDTO } from '../dto/create-user-dto';
+import { AuthService } from '../../core/service/auth-service';
+import { SignInDTO } from '../dto/signin-dto';
+import { AuthGuard } from 'src/infra/http/guards/auth-guard';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post()
   @HttpCode(200)
@@ -12,9 +26,16 @@ export class UserController {
     return await this.userService.createUser(createUserDTO);
   }
 
-  @Get()
+  @Post('login')
   @HttpCode(200)
-  async getUser() {
-    return 'OK';
+  async login(@Body() signInDTO: SignInDTO) {
+    return await this.authService.signin(signInDTO);
+  }
+
+  @Get()
+  @UseGuards(AuthGuard)
+  @HttpCode(200)
+  async getUser(@Req() req) {
+    return { OK: req.userId };
   }
 }
