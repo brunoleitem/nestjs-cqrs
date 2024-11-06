@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SignInDTO } from '../../http/dto/signin-dto';
-import { UserRepository } from 'src/infra/persistence/repository/user-repository';
-import { JwtService } from 'src/infra/auth/jwt-service';
+import { JwtService } from 'src/shared/http/auth/jwt-service';
+import { UserRepository } from '../../persistence/user-repository';
 
 @Injectable()
 export class AuthService {

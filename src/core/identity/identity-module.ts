@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './persistence/user-mongo';
-import { UserRepository } from 'src/infra/persistence/repository/user-repository';
 import { UserService } from './core/service/user-service';
 import { UserController } from './http/rest/user-controller';
 import { AuthService } from './core/service/auth-service';
-import { JwtModule } from 'src/infra/auth/jwt-module';
+import { JwtModule } from 'src/shared/http/auth/jwt-module';
+import { UserRepository } from './persistence/user-repository';
 
 @Module({
   imports: [

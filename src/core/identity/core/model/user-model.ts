@@ -1,39 +1,15 @@
-import { UserDocument } from '../../persistence/user-mongo';
+import { PropertyModel } from 'src/core/properties/core/model/property-model';
+import { BaseModel } from 'src/shared/core/models/base-model';
 
-type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
-
-export class UserModel {
-  id?: string;
+export class UserModel extends BaseModel<UserModel> {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  properties?: PropertyModel[];
 
-  private constructor(data: UserModel) {
+  public constructor(data: UserModel) {
+    super();
     Object.assign(this, data);
-  }
-
-  static create(
-    data: WithOptional<UserModel, 'createdAt' | 'updatedAt'>,
-  ): UserModel {
-    return new UserModel({
-      ...data,
-      createdAt: data.createdAt ? data.createdAt : new Date(),
-      updatedAt: data.updatedAt ? data.updatedAt : new Date(),
-    });
-  }
-
-  static createFrom(data: UserDocument): UserModel {
-    const dataObject = data.toObject({
-      getters: true,
-      virtuals: false,
-      transform: (doc, ret) => {
-        delete ret._id;
-        return ret;
-      },
-    });
-    return new UserModel({ id: String(data._id), ...dataObject });
   }
 }

@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpStatus,
   Post,
   Req,
   UseGuards,
@@ -21,21 +22,21 @@ export class UserController {
   ) {}
 
   @Post()
-  @HttpCode(200)
+  @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() createUserDTO: CreateUserDTO) {
     return await this.userService.createUser(createUserDTO);
   }
 
   @Post('login')
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   async login(@Body() signInDTO: SignInDTO) {
     return await this.authService.signin(signInDTO);
   }
 
   @Get()
   @UseGuards(AuthGuard)
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   async getUser(@Req() req) {
-    return { OK: req.userId };
+    return await this.userService.getUser(req.userId);
   }
 }
