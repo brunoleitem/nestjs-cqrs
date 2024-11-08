@@ -1,4 +1,5 @@
 import { PropertyModel } from 'src/core/properties/core/model/property-model';
+import { Property } from 'src/core/properties/persistence/property-mongo';
 import { BaseModel } from 'src/shared/core/models/base-model';
 
 export class UserModel extends BaseModel<UserModel> {
@@ -6,7 +7,7 @@ export class UserModel extends BaseModel<UserModel> {
   lastName: string;
   email: string;
   password: string;
-  properties?: PropertyModel[];
+  favorites?: Property[];
 
   public constructor(data: UserModel) {
     super();

@@ -1,7 +1,7 @@
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Property } from 'src/core/properties/persistence/property-mongo';
 import { UserModel } from '../core/model/user-model';
+import { PropertyModel } from 'src/core/properties/core/model/property-model';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -20,7 +20,7 @@ export class User implements UserModel {
   password: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }] })
-  properties: Property[];
+  favorites: PropertyModel[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { HydratedDocument, Model } from 'mongoose';
 
 export abstract class BaseRepository<T, K> {
   private model: Model<T>;
@@ -13,6 +13,12 @@ export abstract class BaseRepository<T, K> {
 
   async findById(id: string): Promise<T | K | null> {
     return this.model.findById(id).exec();
+  }
+
+  async findByField(field: string, value: string): Promise<HydratedDocument<T> | null> {
+    return this.model.findOne({
+      [field]: value
+    } as Record<string, any>).exec();
   }
 
   async findAll(): Promise<T[]> {

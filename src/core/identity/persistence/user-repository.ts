@@ -11,9 +11,4 @@ export class UserRepository extends BaseRepository<User, UserModel> {
     super(userModel);
   }
 
-  async findByEmail(email: string): Promise<UserModel | null> {
-    const userDocument = await this.userModel.findOne({ email });
-    if (!userDocument) return null;
-    return UserModel.createFrom(userDocument);
-  }
 }

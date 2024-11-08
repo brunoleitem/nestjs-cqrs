@@ -12,14 +12,14 @@ import { UserService } from '../../core/service/user-service';
 import { CreateUserDTO } from '../dto/create-user-dto';
 import { AuthService } from '../../core/service/auth-service';
 import { SignInDTO } from '../dto/signin-dto';
-import { AuthGuard } from 'src/infra/http/guards/auth-guard';
+import { AuthGuard } from 'src/shared/http/guards/auth-guard';
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -37,6 +37,6 @@ export class UserController {
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async getUser(@Req() req) {
-    return await this.userService.getUser(req.userId);
+    return await this.userService.findById(req.userId);
   }
 }

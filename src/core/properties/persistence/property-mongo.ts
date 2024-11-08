@@ -1,10 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { PropertyModel } from '../core/model/property-model';
+import { UserModel } from 'src/core/identity/core/model/user-model';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
 @Schema({ timestamps: true })
-export class Property {
+export class Property implements PropertyModel {
   @Prop({ required: true })
   address: string;
 
@@ -12,7 +14,11 @@ export class Property {
   price: number;
 
   @Prop({ required: true })
-  likes: number;
+  location: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  createdBy: UserModel;
+
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);
