@@ -18,6 +18,17 @@ export abstract class BaseRepository<T> {
     } as Record<string, any>).populate(populate);
   }
 
+  async findMany(conditions: { field?: string, value?: string }[], populate?: string[]): Promise<HydratedDocument<T>[]> {
+    const query = conditions.reduce((acc, condition) => {
+      if (condition.field && condition.value) {
+        acc[condition.field] = condition.value;
+      }
+      return acc;
+    }, {} as Record<string, any>);
+
+    return this.model.find(query).populate(populate);
+  }
+
   async findAll(populate?: string[]): Promise<HydratedDocument<T>[]> {
     return this.model.find().populate(populate);
   }

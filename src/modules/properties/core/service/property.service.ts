@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BaseService } from '@src/shared/core/service/base.service';
-import { Property, PropertySchema } from '../../persistence/property.schema';
+import { Property } from '../../persistence/property.schema';
 import { CreatePropertyDTO } from '../../http/dto/create-property.dto';
 import { PropertyRepository } from '../../persistence/property.repository';
 import mongoose from 'mongoose';
@@ -16,6 +16,6 @@ export class PropertyService extends BaseService<Property> {
     }
 
     async findByUser(userId: string) {
-        return await this.propertyRepository.findByField('createdBy', userId);
+        return await this.propertyRepository.findMany([{ field: 'createdBy', value: userId }]);
     }
 }
