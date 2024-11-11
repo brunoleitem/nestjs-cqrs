@@ -40,4 +40,8 @@ export abstract class BaseRepository<T> {
   async delete(id: string): Promise<void> {
     return await this.model.findByIdAndDelete(id);
   }
+
+  async clear(): Promise<void> {
+    await this.model.deleteMany({});
+  }
 }

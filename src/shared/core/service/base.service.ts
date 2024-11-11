@@ -1,4 +1,5 @@
 import { BaseRepository } from "@src/shared/core/persistence/base.repository";
+import { HydratedDocument } from "mongoose";
 
 export abstract class BaseService<T> {
     constructor(private readonly repository: BaseRepository<T>) {
@@ -16,7 +17,7 @@ export abstract class BaseService<T> {
         return this.repository.delete(id);
     }
 
-    async findById(id: string, populate?: string[]): Promise<T> {
+    async findById(id: string, populate?: string[]): Promise<HydratedDocument<T>> {
         return this.repository.findById(id, populate);
     }
 
@@ -26,6 +27,10 @@ export abstract class BaseService<T> {
 
     async findAll(populate?: string[]): Promise<T[]> {
         return this.repository.findAll(populate);
+    }
+
+    async clear(): Promise<void> {
+        return this.repository.clear();
     }
 
 }

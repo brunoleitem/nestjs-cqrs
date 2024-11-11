@@ -3,7 +3,7 @@ import { CreateUserDTO } from '../../http/dto/create-user.dto';
 import { UserRepository } from '../../persistence/user.repository';
 import { BaseService } from '@src/shared/core/service/base.service';
 import { User, UserSchema } from '../../persistence/user.schema';
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -11,7 +11,7 @@ export class UserService extends BaseService<User> {
     super(userRepository);
   }
 
-  async createUser(userDTO: CreateUserDTO): Promise<User> {
+  async createUser(userDTO: CreateUserDTO): Promise<HydratedDocument<User>> {
     const exists = await this.userRepository.findByField('email', userDTO.email);
     if (exists) {
       throw new BadRequestException('User already exists');
