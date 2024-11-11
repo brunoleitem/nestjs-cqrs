@@ -1,11 +1,11 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthService } from "../../core/service/auth.service"
+import { AuthService } from "../auth.service"
 import { closeInMongodConnection, rootMongooseTestModule } from "@test/util/mongoose-memory-test.module";
 import { MongooseModule } from "@nestjs/mongoose";
-import { UserSchema } from "../../persistence/user.schema";
+import { UserSchema } from "../../../persistence/user.schema";
 import mongoose from "mongoose";
-import { UserService } from "../../core/service/user.service";
-import { UserRepository } from "../../persistence/user.repository";
+import { UserService } from "../user.service";
+import { UserRepository } from "../../../persistence/user.repository";
 import { JwtModule } from "@src/shared/module/auth/jwt-module";
 
 describe('Auth service', () => {

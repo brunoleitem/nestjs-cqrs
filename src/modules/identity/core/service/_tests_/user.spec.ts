@@ -1,9 +1,9 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../../../test/util/mongoose-memory-test.module'
-import { UserSchema } from '../../persistence/user.schema'
-import { UserService } from '../../core/service/user.service'
-import { UserRepository } from '../../persistence/user.repository'
+import { closeInMongodConnection, rootMongooseTestModule } from '../../../../../../test/util/mongoose-memory-test.module'
+import { UserSchema } from '../../../persistence/user.schema'
+import { UserService } from '../user.service'
+import { UserRepository } from '../../../persistence/user.repository'
 import mongoose from 'mongoose'
 
 describe('User service', () => {
@@ -62,9 +62,4 @@ describe('User service', () => {
         module.close();
     })
 
-    it('Should add a property to user favorites', async () => {
-        const user = await service.createUser(userDTO)
-        // expect(result).toBeDefined()
-        // expect(result.favorites).toContain('test')
-    })
 })

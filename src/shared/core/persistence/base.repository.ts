@@ -12,14 +12,14 @@ export abstract class BaseRepository<T> {
     return this.model.findById(id).populate(populate)
   }
 
-  async findByField(field: string, value: string): Promise<HydratedDocument<T> | null> {
+  async findByField(field: string, value: string, populate?: string[]): Promise<HydratedDocument<T> | null> {
     return this.model.findOne({
       [field]: value
-    } as Record<string, any>);
+    } as Record<string, any>).populate(populate);
   }
 
-  async findAll(): Promise<HydratedDocument<T>[]> {
-    return this.model.find();
+  async findAll(populate?: string[]): Promise<HydratedDocument<T>[]> {
+    return this.model.find().populate(populate);
   }
 
   async update(id: string, item: Partial<T>): Promise<HydratedDocument<T> | null> {

@@ -20,8 +20,12 @@ export abstract class BaseService<T> {
         return this.repository.findById(id, populate);
     }
 
-    async findAll(): Promise<T[]> {
-        return this.repository.findAll();
+    async findByField(field: string, value: string, populate?: string[]): Promise<T> {
+        return this.repository.findByField(field, value, populate);
+    }
+
+    async findAll(populate?: string[]): Promise<T[]> {
+        return this.repository.findAll(populate);
     }
 
 }
