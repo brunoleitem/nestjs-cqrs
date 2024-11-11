@@ -7,18 +7,13 @@ import mongoose from "mongoose";
 import { UserService } from "../user.service";
 import { UserRepository } from "../../../persistence/user.repository";
 import { JwtModule } from "@src/shared/module/auth/jwt-module";
+import { userFactory } from "@test/factory/user-test.factory";
 
 describe('Auth service', () => {
     let authService: AuthService;
     let userService: UserService;
     let module: TestingModule;
-    const userDTO = {
-        email: 'test@test.com',
-        password: 'password',
-        firstName: 'Test',
-        lastName: 'User'
-    }
-
+    const user = userFactory.build();
     beforeAll(async () => {
         module = await Test.createTestingModule({
             providers: [
@@ -39,16 +34,15 @@ describe('Auth service', () => {
         }).compile();
         authService = module.get<AuthService>(AuthService);
         userService = module.get<UserService>(UserService);
+        await userService.createUser(user);
     })
-
 
     it('Service should be defined', () => {
         expect(authService).toBeDefined();
     })
 
     it('Should authenticate and return token', async () => {
-        await userService.createUser(userDTO);
-        const token = await authService.signin({ email: userDTO.email, password: userDTO.password });
+        const token = await authService.signin({ email: user.email, password: user.password });
         expect(token).toBeDefined();
     })
 
@@ -66,7 +60,7 @@ describe('Auth service', () => {
     it('Should throw UnauthorizedException if password is incorrect', async () => {
         try {
             await authService.signin({
-                email: userDTO.email, password: 'wrongpassword'
+                email: user.email, password: 'wrongpassword'
             });
         } catch (error) {
             expect(error.message).toBe('Invalid credentials');

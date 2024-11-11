@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuard
 import { PropertyService } from "../../core/service/property.service";
 import { AuthGuard } from "src/shared/http/guards/auth-guard";
 import { CreatePropertyDTO } from "../dto/create-property.dto";
+import { CurrentUser } from "@src/shared/http/guards/user-decorator";
 
 @Controller("properties")
 export class PropertyController {
@@ -11,7 +12,7 @@ export class PropertyController {
     @Post('create')
     @UseGuards(AuthGuard)
     @HttpCode(HttpStatus.CREATED)
-    async createProperty(@Req() req, @Body() createPropertyDTO: CreatePropertyDTO) {
+    async createProperty(@CurrentUser() req, @Body() createPropertyDTO: CreatePropertyDTO) {
         return await this.propertyService.createProperty(createPropertyDTO, req.userId);
     }
 
