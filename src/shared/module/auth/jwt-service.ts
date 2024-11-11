@@ -1,10 +1,9 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService as NestJsJwtService } from '@nestjs/jwt';
-import { Request } from 'express';
 
 @Injectable()
 export class JwtService {
-  constructor(private readonly nestJsJwtService: NestJsJwtService) {}
+  constructor(private readonly nestJsJwtService: NestJsJwtService) { }
   async generateToken(userId) {
     const accessToken = this.nestJsJwtService.sign({ userId });
 
@@ -23,6 +22,10 @@ export class JwtService {
   }
 
   private extractFromHeader(request: Request) {
-    return request.headers.authorization.split(' ')[1];
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new Error('Authorization header not found');
+    }
+    return authHeader.split(' ')[1];
   }
 }

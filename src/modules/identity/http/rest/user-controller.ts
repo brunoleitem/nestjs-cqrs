@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -13,6 +14,7 @@ import { CreateUserDTO } from '../dto/create-user.dto';
 import { AuthService } from '../../core/service/auth.service';
 import { SignInDTO } from '../dto/signin.dto';
 import { AuthGuard } from 'src/shared/http/guards/auth-guard';
+import { CurrentUser } from '@src/shared/http/guards/user-decorator';
 
 @Controller('user')
 export class UserController {
@@ -36,8 +38,16 @@ export class UserController {
   @Get()
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  async getUser(@Req() req) {
-    return await this.userService.findById(req.userId);
+  async getUser(@CurrentUser() req) {
+    return await this.userService.findById(req.userId, ['favorites']);
+  }
+
+  @Post('addFavorite/:propertyId')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async addToFavorites(@CurrentUser() req, @Param('propertyId') propertyId: string) {
+    await this.userService.addToFavorites(req.userId, propertyId);
+    return;
   }
 
 }

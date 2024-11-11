@@ -16,8 +16,8 @@ export abstract class BaseService<T> {
         return this.repository.delete(id);
     }
 
-    async findById(id: string): Promise<T> {
-        return this.repository.findById(id);
+    async findById(id: string, populate?: string[]): Promise<T> {
+        return this.repository.findById(id, populate);
     }
 
     async findAll(): Promise<T[]> {
