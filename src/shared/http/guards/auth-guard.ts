@@ -5,11 +5,11 @@ import {
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from 'src/shared/http/auth/jwt-service';
+import { JwtService } from 'src/shared/module/auth/jwt-service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) { }
   async canActivate(ctx: ExecutionContext) {
     try {
       await this.jwtService.verify(ctx);

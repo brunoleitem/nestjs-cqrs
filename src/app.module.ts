@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from './shared/config/config-module';
-import { MongooseModule } from './shared/persistence/mongoose-module';
-import { IdentityModule } from './core/identity/identity-module';
-import { JwtModule } from './shared/http/auth/jwt-module';
+import { ConfigModule } from './shared/module/config/config-module';
+import { MongooseModule } from './shared/module/persistence/mongoose-module';
+import { IdentityModule } from './modules/identity/identity-module';
+import { JwtModule } from './shared/module/auth/jwt-module';
+import { PropertyModule } from './modules/properties/property.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { JwtModule } from './shared/http/auth/jwt-module';
     JwtModule.forRoot(),
     MongooseModule,
     IdentityModule,
+    PropertyModule
   ],
 })
-export class AppModule {}
+export class AppModule { }
