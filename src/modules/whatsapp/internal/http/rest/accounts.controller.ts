@@ -1,14 +1,14 @@
 import { Controller, Get, UseGuards, HttpCode, HttpStatus, Param, Query, Post, Body } from "@nestjs/common";
 import { AuthGuard } from "@src/shared/http/guards/auth-guard";
-import { InternalAccountsService } from "../../../core/internal/internal.accounts.service";
-import { CreateAccountDTO } from "../../dto/request/create-account.dto";
-import { SendMessageDTO } from "../../dto/request/send-message.dto";
-import { GetAccountDTO } from "../../dto/response/get-accounts.dto";
+import { AccountsService } from "../../core/accounts.service";
+import { GetAccountDTO } from "../dto/response/get-accounts.dto";
+import { CreateAccountDTO } from "../dto/request/create-account.dto";
+
 
 @Controller("whatsapp/internal/accounts")
 
-export class InternalAccountsController {
-    constructor(private readonly accountService: InternalAccountsService) { }
+export class AccountsController {
+    constructor(private readonly accountService: AccountsService) { }
 
     @Get()
     @UseGuards(AuthGuard)

@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
-import { InternalTemplateService } from "@src/modules/whatsapp/core/internal/internal.template.service";
-import { CreateTemplateDTO } from "../../dto/request/create-template.dto";
-import { CreateTemplateResponseDTO } from "../../dto/response/create-template-response.dto";
+import { TemplatesService } from "../../core/template.service";
+import { CreateTemplateDTO } from "../dto/request/create-template.dto";
+import { CreateTemplateResponseDTO } from "../dto/response/create-template-response.dto";
 
 @Controller("whatsapp/internal/template")
-export class InternalTemplateController {
-    constructor(private readonly service: InternalTemplateService) { }
+export class TemplatesController {
+    constructor(private readonly service: TemplatesService) { }
 
     @Get()
     async listTemplate() {

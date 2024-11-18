@@ -1,10 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { TwilioClient } from "../../infra/twilio.client";
-import { TwilioText, Types } from "twilio/lib/rest/content/v1/content";
-import { CreateTemplateDTO } from "../../http/dto/request/create-template.dto";
+import { CreateTemplateDTO } from "../http/dto/request/create-template.dto";
 
 @Injectable()
-export class InternalTemplateService {
+export class TemplatesService {
     constructor(private readonly client: TwilioClient) { }
 
     async listTemplates() {

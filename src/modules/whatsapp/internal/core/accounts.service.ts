@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { TwilioClient } from "../../infra/twilio.client";
-import { CreateAccountDTO } from "../../http/dto/request/create-account.dto";
-import { GetAccountDTO } from "../../http/dto/response/get-accounts.dto";
+import { GetAccountDTO } from "../http/dto/response/get-accounts.dto";
+import { CreateAccountDTO } from "../http/dto/request/create-account.dto";
+
 
 @Injectable()
-export class InternalAccountsService {
+export class AccountsService {
     constructor(private readonly client: TwilioClient) {
     }
 
