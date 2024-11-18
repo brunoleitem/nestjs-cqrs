@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { TwilioClient } from '../../infra/twilio.client'
+import { TwilioClient } from '../../../../shared/infra/twilio/twilio.client'
 import { CreateAccountDTO } from '../http/dto/request/create-account.dto'
 import { GetAccountDTO } from '../http/dto/response/get-accounts.dto'
 

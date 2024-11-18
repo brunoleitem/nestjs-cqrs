@@ -12,6 +12,11 @@ export class TemplatesController {
     return await this.service.listTemplates()
   }
 
+  @Get('/:sid')
+  async getTemplate(@Param('sid') sid: string) {
+    return await this.service.getTemplate(sid)
+  }
+
   @Post()
   async createTemplate(
     @Body() body: CreateTemplateDTO

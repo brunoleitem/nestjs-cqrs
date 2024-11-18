@@ -46,4 +46,8 @@ export class TwilioClient {
   async listTemplates() {
     return await this.client.content.v2.contents.list()
   }
+
+  async getTemplate(sid: string) {
+    return await this.client.content.v1.contents(sid).fetch()
+  }
 }

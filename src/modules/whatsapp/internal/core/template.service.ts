@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { TwilioClient } from '../../infra/twilio.client'
+import { TwilioClient } from '../../../../shared/infra/twilio/twilio.client'
 import { CreateTemplateDTO } from '../http/dto/request/create-template.dto'
+import { CreateTemplateResponseDTO } from '../http/dto/response/create-template-response.dto'
 
 @Injectable()
 export class TemplatesService {
@@ -10,7 +11,9 @@ export class TemplatesService {
     return await this.client.listTemplates()
   }
 
-  async createTemplate(body: CreateTemplateDTO) {
+  async createTemplate(
+    body: CreateTemplateDTO
+  ): Promise<CreateTemplateResponseDTO> {
     const createdTemplate = await this.client.createTemplate(
       body.template,
       body.friendlyName,
@@ -19,6 +22,10 @@ export class TemplatesService {
     return {
       sid: createdTemplate.sid
     }
+  }
+
+  async getTemplate(sid: string) {
+    return await this.client.getTemplate(sid)
   }
 
   async deleteTemplate(sid: string) {

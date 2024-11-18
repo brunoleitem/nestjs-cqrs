@@ -1,13 +1,14 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
   Post
 } from '@nestjs/common'
 import { TemplatesService } from '@src/modules/whatsapp/external/core/templates.service'
-import { TwilioHeaders } from '@src/modules/whatsapp/infra/twilio-decorators'
+import { TwilioHeaders } from '@src/shared/infra/twilio/twilio-decorators'
 import { SubmitTemplateDTO } from '../dto/request/submit-template.dto'
 
 @Controller('whatsapp/external')
@@ -22,5 +23,14 @@ export class TemplatesController {
     @Body() body: SubmitTemplateDTO
   ) {
     return this.templatesService.submit(sid, body, headers)
+  }
+
+  @Get('templates/status/:sid')
+  @HttpCode(HttpStatus.OK)
+  async getTemplateStatus(
+    @Param('sid') sid: string,
+    @TwilioHeaders() headers: TwilioHeaders
+  ) {
+    return this.templatesService.getTemplateStatus(sid, headers)
   }
 }

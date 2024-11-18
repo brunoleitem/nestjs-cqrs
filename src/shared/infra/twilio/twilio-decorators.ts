@@ -14,3 +14,12 @@ export const TwilioHeaders = createParamDecorator(
     return { accountSid, authToken }
   }
 )
+
+export function GenerateAuthOptions(accountSid: string, authToken: string) {
+  return {
+    auth: {
+      username: accountSid,
+      password: authToken
+    }
+  }
+}
