@@ -4,6 +4,7 @@ import { MongooseModule } from './shared/module/persistence/mongoose-module';
 import { IdentityModule } from './modules/identity/identity.module';
 import { JwtModule } from './shared/module/auth/jwt-module';
 import { PropertyModule } from './modules/properties/property.module';
+import { WhatsappModule } from './modules/whatsapp/whatsapp.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { PropertyModule } from './modules/properties/property.module';
     JwtModule.forRoot(),
     MongooseModule,
     IdentityModule,
-    PropertyModule
+    PropertyModule,
+    WhatsappModule
   ],
 })
 export class AppModule { }
