@@ -1,10 +1,10 @@
-import { DynamicModule } from '@nestjs/common';
+import type { DynamicModule } from '@nestjs/common'
 import {
   ConfigModule as NestConfigModule,
-  ConfigModuleOptions as NestConfigModuleOptions,
-} from '@nestjs/config';
-import { ConfigService } from './config-service';
-import { factory } from './config-factory';
+  type ConfigModuleOptions as NestConfigModuleOptions
+} from '@nestjs/config'
+import { factory } from './config-factory'
+import { ConfigService } from './config-service'
 
 export class ConfigModule {
   static forRoot(options?: NestConfigModuleOptions): DynamicModule {
@@ -14,11 +14,11 @@ export class ConfigModule {
         NestConfigModule.forRoot({
           ...options,
           expandVariables: true,
-          load: options?.load ? [factory, ...options.load] : [factory],
-        }),
+          load: options?.load ? [factory, ...options.load] : [factory]
+        })
       ],
       providers: [ConfigService],
-      exports: [ConfigService],
-    };
+      exports: [ConfigService]
+    }
   }
 }

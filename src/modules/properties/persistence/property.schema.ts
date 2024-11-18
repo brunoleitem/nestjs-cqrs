@@ -1,22 +1,21 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import mongoose, { type HydratedDocument } from 'mongoose'
 
-export type PropertyDocument = HydratedDocument<Property>;
+export type PropertyDocument = HydratedDocument<Property>
 
 @Schema({ timestamps: true })
 export class Property {
   @Prop({ required: true })
-  address: string;
+  address: string
 
   @Prop({ required: true })
-  price: number;
+  price: number
 
   @Prop({ required: true })
-  location: string;
+  location: string
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  createdBy: mongoose.Types.ObjectId;
-
+  createdBy: mongoose.Types.ObjectId
 }
 
-export const PropertySchema = SchemaFactory.createForClass(Property);
+export const PropertySchema = SchemaFactory.createForClass(Property)

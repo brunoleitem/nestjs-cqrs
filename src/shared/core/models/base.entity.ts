@@ -1,11 +1,7 @@
-import { HydratedDocument } from 'mongoose';
-import { Schema, SchemaDefinition, SchemaOptions } from 'mongoose';
-
 export abstract class BaseEntity {
-  readonly id?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-
+  readonly id?: string
+  createdAt?: Date
+  updatedAt?: Date
 
   // public static create<T extends BaseModel<T>>(
   //   this: new (data?: Partial<T>) => T,
@@ -38,4 +34,4 @@ export abstract class BaseEntity {
 }
 
 export type WithOptional<T, K extends keyof T> = Omit<T, K> &
-  Partial<Pick<T, K>>;
+  Partial<Pick<T, K>>

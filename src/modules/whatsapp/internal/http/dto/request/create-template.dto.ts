@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsObject, IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsString } from 'class-validator'
 
 export class CreateTemplateDTO {
-    @IsObject()
-    @IsNotEmpty()
-    readonly template: { [type: string]: any };
+  @IsObject()
+  @IsNotEmpty()
+  readonly template: { [type: string]: any }
 
-    @IsString()
-    @IsNotEmpty()
-    readonly friendlyName: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly friendlyName: string
 
-    @IsObject()
-    @IsNotEmpty()
-    readonly variables: { [key: string]: string };
+  @IsObject()
+  @IsNotEmpty()
+  readonly variables: { [key: string]: string }
 }
